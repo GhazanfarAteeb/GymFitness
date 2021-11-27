@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.R;
@@ -45,39 +46,53 @@ public class SignUpActivity extends AppCompatActivity {
             boolean emailFilled = isFieldFilled(etEmail);
             boolean nameFilled =  isFieldFilled(etName);
 
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
             if (nameFilled && emailFilled && passwordFilled) {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(DatabaseHelper.USER_NAME, etName.getText().toString().trim());
-                contentValues.put(DatabaseHelper.USER_EMAIL, etEmail.getText().toString().trim());
-                contentValues.put(DatabaseHelper.USER_PASSWORD, etPassword.getText().toString().trim());
-                /*   IN REGISTER, THE SPINNER FIRST MOST POSITION IS FOR INSTRUCTOR BUT ACCORDING TO
-                     THE DESIGNED DATABASE THE ADMIN WILL HAVE THE FIRST MOST POSITION WHILE THE
-                     INSTRUCTOR WILL HAVE SECOND POSITION AND MEMBER WILL HAVE LAST POSITION
-                 */
-                if(spinner.getSelectedItemPosition() == 0)
-                    contentValues.put(DatabaseHelper.USER_TYPE_ID, 1);
-                else
-                    contentValues.put(DatabaseHelper.USER_TYPE_ID, 2);
-                /*
-                       ACCORDING TO THE DATABASE THE MALE GENDER HAVE ID 1 WHILE FEMALE GENDER WILL
-                       HAVE ID 2
-                 */
-                if (rg.getCheckedRadioButtonId() == 0)
-                    contentValues.put(DatabaseHelper.USER_GENDER, 1);
-                else
-                    contentValues.put(DatabaseHelper.USER_GENDER, 2);
+                if (!databaseHelper.checkExistingUser(databaseHelper.getReadableDatabase(),etEmail.getText().toString().trim())) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(DatabaseHelper.USER_NAME, etName.getText().toString().trim());
+                    contentValues.put(DatabaseHelper.USER_EMAIL, etEmail.getText().toString().trim());
+                    contentValues.put(DatabaseHelper.USER_PASSWORD, etPassword.getText().toString().trim());
+                    /*   IN REGISTER, THE SPINNER FIRST MOST POSITION IS FOR INSTRUCTOR BUT ACCORDING TO
+                         THE DESIGNED DATABASE THE ADMIN WILL HAVE THE FIRST MOST POSITION WHILE THE
+                         INSTRUCTOR WILL HAVE SECOND POSITION AND MEMBER WILL HAVE LAST POSITION
+                     */
+                    if(spinner.getSelectedItemPosition() == 0)
+                        contentValues.put(DatabaseHelper.USER_TYPE_ID, 1);
+                    else
+                        contentValues.put(DatabaseHelper.USER_TYPE_ID, 2);
+                    /*
+                           ACCORDING TO THE DATABASE THE MALE GENDER HAVE ID 1 WHILE FEMALE GENDER WILL
+                           HAVE ID 2
+                     */
+                    if (rg.getCheckedRadioButtonId() == 0)
+                        contentValues.put(DatabaseHelper.USER_GENDER, 1);
+                    else
+                        contentValues.put(DatabaseHelper.USER_GENDER, 2);
 
-                DatabaseHelper databaseHelper = new DatabaseHelper(this);
-                databaseHelper.getWritableDatabase().insert(DatabaseHelper.USER_TABLE_NAME, null, contentValues);
-                databaseHelper.close();
-                switch(spinner.getSelectedItemPosition()) {
-                    case 0:
-                        startActivity(new Intent(this, InstructorHomeScreenActivity.class));
-                        finish();
-                        break;
-                    case 1:
-                        startActivity(new Intent(this, MemberHomeScreenActivity.class));
-                        break;
+
+                    databaseHelper.getWritableDatabase().insert(DatabaseHelper.USER_TABLE_NAME, null, contentValues);
+                    MainActivity.USER_ID = databaseHelper.checkUser(
+                            databaseHelper.getReadableDatabase(),
+                            etEmail.getText().toString().trim(),
+                            etPassword.getText().toString().trim(),
+                            spinner.getSelectedItemPosition()+1
+                    );
+                    Toast.makeText(this, MainActivity.USER_ID+"",Toast.LENGTH_SHORT).show();
+                    databaseHelper.close();
+                    switch(spinner.getSelectedItemPosition()) {
+                        case 0:
+                            startActivity(new Intent(this, InstructorHomeScreenActivity.class));
+                            finish();
+                            break;
+                        case 1:
+                            startActivity(new Intent(this, MemberHomeScreenActivity.class));
+                            finish();
+                            break;
+                    }
+                }
+                else {
+                    etEmail.setError("Username already exists");
                 }
             }
         });

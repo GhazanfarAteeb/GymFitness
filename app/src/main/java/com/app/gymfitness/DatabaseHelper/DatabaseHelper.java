@@ -30,20 +30,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CLASS_TYPE_ID = "ClassTypeID";
     public static final String CLASS_TIME = "ClassTime";
     public static final String CLASS_DATE = "ClassDate";
-    private static final String CLASS_INSTRUCTOR_ID = "InstructorID";
+    public static final String CLASS_INSTRUCTOR_ID = "InstructorID";
 
 
     //  CREATING ENROLLMENT TABLE DETAILS HERE FOR DATABASE HELPER
-    private static final String ENROLLMENT_TABLE_NAME = "Enrollments";
-    private static final String ENROLLMENT_ID = "ID";
-    private static final String ENROLLMENT_CLASS_ID = "ClassID";
-    private static final String ENROLLMENT_USER_ID = "UserID";
+    public static final String ENROLLMENT_TABLE_NAME = "Enrollments";
+    public static final String ENROLLMENT_ID = "ID";
+    public static final String ENROLLMENT_CLASS_ID = "ClassID";
+    public static final String ENROLLMENT_USER_ID = "UserID";
 
 
     // CREATING TYPE TABLE DETAILS HERE FOR DATABASE HELPER
-    private static final String TYPE_TABLE_NAME = "Types";
-    private static final String TYPE_ID = "ID";
-    private static final String TYPE_DESCRIPTION = "Description";
+    public static final String TYPE_TABLE_NAME = "Types";
+    public static final String TYPE_ID = "ID";
+    public static final String TYPE_NAME ="Name";
+    public static final String TYPE_DESCRIPTION = "Description";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -70,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + TYPE_TABLE_NAME + "(" +
                         TYPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        TYPE_NAME + " TEXT NOT NULL, " +
                         TYPE_DESCRIPTION + " TEXT NOT NULL" +
                         ")"
         );
@@ -128,6 +130,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return userID;
     }
 
+    public Cursor getAllClassTypes(SQLiteDatabase sqLiteDatabase) {
+        return sqLiteDatabase.rawQuery("SELECT * FROM "+TYPE_TABLE_NAME,null);
+    }
+
+    public boolean checkExistingUser(SQLiteDatabase sqLiteDatabase, String username) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM "+USER_TABLE_NAME+" WHERE " +USER_EMAIL + "='" + username + "'",
+                null).moveToFirst();
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

@@ -10,6 +10,12 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.GymFitness">
 		<activity
+			android:name=".Activities.ManageUsersActivity"
+			android:exported="false" />
+		<activity
+			android:name=".Activities.ManageTypesActivity"
+			android:exported="false" />
+		<activity
 			android:name=".Activities.MemberHomeScreenActivity"
 			android:exported="false" />
 		<activity
