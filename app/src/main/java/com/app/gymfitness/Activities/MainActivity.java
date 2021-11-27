@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        tvSignUp.setOnClickListener(view -> {
-
-        });
+        tvSignUp.setOnClickListener(view -> startActivity(new Intent(this,SignUpActivity.class)));
 
         btnLogin.setOnClickListener(view -> {
             if (isFieldFilled(etUserName) || isFieldFilled(etPassword)) {
@@ -59,15 +57,17 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                             break;
                         case 1:
+                            startActivity(new Intent(this, InstructorHomeScreenActivity.class));
                             finish();
                             break;
                         case 2:
-
+                            startActivity(new Intent(this, MemberHomeScreenActivity.class));
                             break;
                     }
                 } else {
                     etUserName.setError("");
                     etPassword.setError("");
+
                     findViewById(R.id.tv_error).setVisibility(View.VISIBLE);
                 }
             }
@@ -76,10 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isFieldFilled(EditText field) {
         boolean fieldFilled = true;
+
         if (field.getText().toString().trim().isEmpty()) {
             field.setError("Required field cannot be empty.");
             fieldFilled = false;
         }
+
         return fieldFilled;
     }
 }

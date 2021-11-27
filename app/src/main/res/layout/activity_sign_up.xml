@@ -1,9 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".Activities.SignUpActivity">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+	tools:context=".Activities.SignUpActivity"
+	android:gravity="center_vertical">
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Sign Up"
+		android:layout_centerHorizontal="true"
+		android:textSize="30sp"
+		android:textStyle="bold"
+		android:id="@+id/tv_sign_up"/>
+	<EditText
+		android:id="@+id/et_name"
+		android:layout_width="250dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/tv_sign_up"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="25dp"
+		android:hint="Name" />
+	
+	<EditText
+		android:id="@+id/et_email"
+		android:layout_width="250dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/et_name"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="12dp"
+		android:hint="Email" />
+	<EditText
+		android:id="@+id/et_password"
+		android:layout_width="250dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/et_email"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="12dp"
+		android:hint="Password"
+		android:inputType="textPassword" />
+	<RadioGroup
+		android:id="@+id/rg_gender"
+		android:layout_alignStart="@id/et_password"
+		android:layout_below="@id/et_password"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<RadioButton
+			android:id="@+id/rb_male"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:scaleX="0.75"
+			android:scaleY="0.75"
+			android:text="Male"
+			android:textSize="20sp"/>
+		<RadioButton
+			android:id="@+id/rb_female"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:scaleX="0.75"
+			android:scaleY="0.75"
+			android:text="Female"
+			android:textSize="20sp"/>
+	</RadioGroup>
+	<LinearLayout
+		android:id="@+id/ll_spinner_login_type"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/rg_gender"
+		android:layout_alignEnd="@id/et_password"
+		android:layout_alignStart="@id/rg_gender"
+		android:layout_marginTop="20dp">
+		
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:text="Login as:" />
+		
+		<Spinner
+			android:id="@+id/spinner_login_types"
+			android:layout_width="190dp"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+	<Button
+		android:id="@+id/btn_sign_up"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/ll_spinner_login_type"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:text="Sign Up" />
+	
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/btn_sign_up"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="16dp"
+		android:orientation="horizontal">
+		
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Already a user?" />
+		
+		<TextView
+			android:id="@+id/tv_sign_in"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="5dp"
+			android:text="@string/sign_in" />
+	</LinearLayout>
+</RelativeLayout>

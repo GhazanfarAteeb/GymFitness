@@ -51,11 +51,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
         /*
             WORKING WITH USERS TABLE
          */
-
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + USER_TABLE_NAME + "(" +
                         USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -66,22 +64,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         USER_TYPE_ID + " INTEGER NOT NULL " +
                         ");"
         );
-
         /*
             WORKING WITH TYPE TABLE
          */
-
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + TYPE_TABLE_NAME + "(" +
                         TYPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         TYPE_DESCRIPTION + " TEXT NOT NULL" +
                         ")"
         );
-
         /*
             WORKING WITH CLASSES TABLE
          */
-
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + CLASSES_TABLE_NAME + "(" +
                         CLASS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -93,11 +87,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         CLASS_INSTRUCTOR_ID + "INTEGER NOT NULL" +
                         ")"
         );
-
         /*
             WORKING WITH ENROLLMENT TABLE
          */
-
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + ENROLLMENT_TABLE_NAME + "(" +
                         ENROLLMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
