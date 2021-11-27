@@ -1,0 +1,9 @@
+<resources>
+	<string name="app_name">Gym Fitness</string>
+	<string name="sign_up"><u>Sign Up</u></string>
+	<string-array name="login_types">
+		<item> Admin</item>
+		<item>Instructor</item>
+		<item> Member</item>
+	</string-array>
+</resources>
