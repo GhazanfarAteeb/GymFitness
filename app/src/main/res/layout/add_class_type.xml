@@ -39,6 +39,6 @@
 			android:layout_height="100dp"
 			android:id="@+id/et_type_description"
 			android:autofillHints="null"
-			android:inputType="numberDecimal" />
+			android:inputType="textMultiLine" />
 	</LinearLayout>
 </LinearLayout>
