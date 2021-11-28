@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // CREATING TYPE TABLE DETAILS HERE FOR DATABASE HELPER
     public static final String TYPE_TABLE_NAME = "Types";
     public static final String TYPE_ID = "ID";
-    public static final String TYPE_NAME ="Name";
+    public static final String TYPE_NAME = "Name";
     public static final String TYPE_DESCRIPTION = "Description";
 
     public DatabaseHelper(@Nullable Context context) {
@@ -131,12 +131,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAllClassTypes(SQLiteDatabase sqLiteDatabase) {
-        return sqLiteDatabase.rawQuery("SELECT * FROM "+TYPE_TABLE_NAME,null);
+        return sqLiteDatabase.rawQuery("SELECT * FROM " + TYPE_TABLE_NAME, null);
     }
 
     public boolean checkExistingUser(SQLiteDatabase sqLiteDatabase, String username) {
         return sqLiteDatabase.rawQuery(
-                "SELECT * FROM "+USER_TABLE_NAME+" WHERE " +USER_EMAIL + "='" + username + "'",
+                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_EMAIL + "='" + username + "'",
                 null).moveToFirst();
     }
 

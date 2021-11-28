@@ -17,12 +17,14 @@ import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.R;
 
 public class AddClassTypeDialog extends AppCompatDialogFragment {
+    UpdateDataListener listener;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.add_class_type,null);
+        View view = inflater.inflate(R.layout.add_class_type, null);
         EditText etTypeName = view.findViewById(R.id.et_type_name);
         EditText etDescription = view.findViewById(R.id.et_type_description);
         builder.setView(view)
@@ -36,10 +38,11 @@ public class AddClassTypeDialog extends AppCompatDialogFragment {
                     if (typeNameFilled && descriptionFilled) {
                         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
                         ContentValues content = new ContentValues();
-                        content.put(DatabaseHelper.TYPE_NAME,etTypeName.getText().toString());
-                        content.put(DatabaseHelper.TYPE_DESCRIPTION,etDescription.getText().toString());
+                        content.put(DatabaseHelper.TYPE_NAME, etTypeName.getText().toString());
+                        content.put(DatabaseHelper.TYPE_DESCRIPTION, etDescription.getText().toString());
                         databaseHelper.getWritableDatabase().insert(DatabaseHelper.TYPE_TABLE_NAME, null, content);
-                        Toast.makeText(getActivity().getApplicationContext(), "Type added successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Type added successfully", Toast.LENGTH_SHORT).show();
+                        listener.UpdateRecyclerVIewData();
 
                     }
                 });
@@ -55,5 +58,13 @@ public class AddClassTypeDialog extends AppCompatDialogFragment {
         }
 
         return fieldFilled;
+    }
+
+    public void setUpdateDataListener(UpdateDataListener listener) {
+        this.listener = listener;
+    }
+
+    public interface UpdateDataListener {
+        void UpdateRecyclerVIewData();
     }
 }

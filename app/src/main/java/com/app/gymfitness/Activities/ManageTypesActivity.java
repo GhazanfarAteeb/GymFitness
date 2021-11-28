@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
 
 import com.app.gymfitness.Adapters.TypesAdapter;
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
@@ -21,6 +20,7 @@ public class ManageTypesActivity extends AppCompatActivity {
     RecyclerView recyclerview;
     List<ClassType> classTypeList;
     TypesAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +31,12 @@ public class ManageTypesActivity extends AppCompatActivity {
         adapter = new TypesAdapter(this);
         setData();
 
+        AddClassTypeDialog.UpdateDataListener listener = this::setData;
+
         findViewById(R.id.fab).setOnClickListener(view -> {
-            AddClassTypeDialog addClassType =new AddClassTypeDialog();
-            addClassType.show(getSupportFragmentManager(),"Add type data");
-            setData();
+            AddClassTypeDialog addClassType = new AddClassTypeDialog();
+            addClassType.show(getSupportFragmentManager(), "Add type data");
+            addClassType.setUpdateDataListener(listener);
         });
     }
 
@@ -55,5 +57,6 @@ public class ManageTypesActivity extends AppCompatActivity {
         adapter.setData(classTypeList);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         recyclerview.setAdapter(adapter);
+        databaseHelper.close();
     }
 }
