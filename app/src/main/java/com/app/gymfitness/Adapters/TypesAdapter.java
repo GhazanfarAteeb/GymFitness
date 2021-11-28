@@ -1,16 +1,18 @@
 package com.app.gymfitness.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.gymfitness.Activities.ClassTypeDescriptionActivity;
 import com.app.gymfitness.Models.ClassType;
 import com.app.gymfitness.R;
 
@@ -34,7 +36,13 @@ public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.MyHolder> {
         holder.tvClassTypeDescription.setText(classType.getDescription());
         holder.tvClassTypeName.setText(classType.getClassName());
         holder.cvClassType.setOnClickListener(view -> {
-            Toast.makeText(context,position+"",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, ClassTypeDescriptionActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("ClassTypeID", classType.getClassTypeID());
+            bundle.putString("ClassTypeName", classType.getClassName());
+            bundle.putString("ClassTypeDescription", classType.getDescription());
+            intent.putExtra("ClassType",bundle);
+            context.startActivity(intent);
         });
     }
 

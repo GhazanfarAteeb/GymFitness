@@ -78,16 +78,13 @@ public class SignUpActivity extends AppCompatActivity {
                             etPassword.getText().toString().trim(),
                             spinner.getSelectedItemPosition()+1
                     );
-                    Toast.makeText(this, MainActivity.USER_ID+"",Toast.LENGTH_SHORT).show();
                     databaseHelper.close();
                     switch(spinner.getSelectedItemPosition()) {
                         case 0:
                             startActivity(new Intent(this, InstructorHomeScreenActivity.class));
-                            finish();
                             break;
                         case 1:
                             startActivity(new Intent(this, MemberHomeScreenActivity.class));
-                            finish();
                             break;
                     }
                 }

@@ -2,7 +2,6 @@ package com.app.gymfitness.Dialogs;
 
 
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.R;
 
-public class AddClassTypeDialog extends AppCompatDialogFragment {
+public class UpdateClassTypeDialog extends AppCompatDialogFragment {
     UpdateDataListener listener;
 
     @NonNull
@@ -27,21 +26,27 @@ public class AddClassTypeDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.add_class_type, null);
         EditText etTypeName = view.findViewById(R.id.et_type_name);
         EditText etDescription = view.findViewById(R.id.et_type_description);
+
+        Bundle data = getArguments();
+
+        etTypeName.setText(data.getString("ClassTypeName"));
+        etDescription.setText(data.getString("ClassTypeDescription"));
         builder.setView(view)
                 .setTitle("Add data")
                 .setNegativeButton("Cancel", (dialog, which) -> {
 
                 })
-                .setPositiveButton("Add", (dialog, which) -> {
+                .setPositiveButton("Update", (dialog, which) -> {
                     boolean typeNameFilled = isFieldFilled(etTypeName);
                     boolean descriptionFilled = isFieldFilled(etDescription);
                     if (typeNameFilled && descriptionFilled) {
                         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
-                        ContentValues content = new ContentValues();
-                        content.put(DatabaseHelper.TYPE_NAME, etTypeName.getText().toString());
-                        content.put(DatabaseHelper.TYPE_DESCRIPTION, etDescription.getText().toString());
-                        databaseHelper.getWritableDatabase().insert(DatabaseHelper.TYPE_TABLE_NAME, null, content);
-                        Toast.makeText(getActivity().getApplicationContext(), "Type added successfully", Toast.LENGTH_SHORT).show();
+                        databaseHelper.updateClassType(
+                                databaseHelper.getWritableDatabase(), data.getInt("ClassTypeID"),
+                                etTypeName.getText().toString().trim(),
+                                etDescription.getText().toString().trim()
+                        );
+                        Toast.makeText(getActivity().getApplicationContext(), "Type updated successfully", Toast.LENGTH_SHORT).show();
                         listener.UpdateRecyclerVIewData();
                     }
                 });

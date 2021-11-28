@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                 } else {
-                    etUserName.setError("");
-                    etPassword.setError("");
+                    etUserName.setError(null);
+                    etPassword.setError(null);
 
                     findViewById(R.id.tv_error).setVisibility(View.VISIBLE);
                 }

@@ -13,4 +13,8 @@ public class InstructorHomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_home_screen);
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

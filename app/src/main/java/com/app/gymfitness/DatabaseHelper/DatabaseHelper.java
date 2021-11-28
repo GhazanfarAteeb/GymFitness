@@ -86,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         CLASS_TYPE_ID + " INTEGER NOT NULL, " +
                         CLASS_TIME + " TIME NOT NULL, " +
                         CLASS_DATE + " DATE NOT NULL, " +
-                        CLASS_INSTRUCTOR_ID + "INTEGER NOT NULL" +
+                        CLASS_INSTRUCTOR_ID + " INTEGER NOT NULL" +
                         ")"
         );
         /*
@@ -138,6 +138,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery(
                 "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_EMAIL + "='" + username + "'",
                 null).moveToFirst();
+    }
+
+    public void deleteClassType(SQLiteDatabase sqLiteDatabase, int ID) {
+        sqLiteDatabase.execSQL(
+                "DELETE FROM " + TYPE_TABLE_NAME + " WHERE " + TYPE_ID + "=" + ID
+        );
+        Cursor cursor = sqLiteDatabase.rawQuery(
+                "SELECT " + CLASS_ID + " FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_TYPE_ID + "=" + ID
+                , null
+        );
+        while (cursor.moveToNext()) {
+            int colIndex = cursor.getColumnIndex(CLASS_ID);
+            sqLiteDatabase.execSQL(
+                    "DELETE FROM " + ENROLLMENT_TABLE_NAME +" WHERE "+ ENROLLMENT_CLASS_ID+"="+cursor.getInt(colIndex)
+            );
+        }
+        sqLiteDatabase.execSQL(
+                "DELETE FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_TYPE_ID + "=" + ID
+        );
+        cursor.close();
+    }
+
+    public void updateClassType(SQLiteDatabase sqLiteDatabase, int ID, String typeName, String typeDescription) {
+        sqLiteDatabase.execSQL(
+                "UPDATE " + TYPE_TABLE_NAME +" SET " +
+                TYPE_NAME + "='"+typeName +"', " +
+                TYPE_DESCRIPTION+"='"+typeDescription +
+                "' WHERE " + TYPE_ID + "=" + ID
+        );
     }
 
     @Override
