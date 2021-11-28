@@ -169,6 +169,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
+    public Cursor getAllUserByType(SQLiteDatabase sqLiteDatabase, int typeID) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_TYPE_ID +"="+typeID,
+                null);
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME);

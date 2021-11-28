@@ -3,29 +3,32 @@
 	android:id="@+id/cv_class_type"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
-	
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:padding="7dp">
-		
-		<TextView
-			android:id="@+id/tv_class_type_name"
-			android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<RelativeLayout
+			android:id="@+id/rl_top"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:textSize="20sp" />
-		
-		<TextView
-			android:id="@+id/tv_description"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@+id/tv_class_type_name"
-			android:textSize="14sp" />
-		
+			android:padding="7dp">
+			
+			<TextView
+				android:id="@+id/tv_class_type_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp" />
+			
+			<TextView
+				android:id="@+id/tv_description"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/tv_class_type_name"
+				android:textSize="14sp" />
+		</RelativeLayout>
 		<View
 			android:layout_width="match_parent"
 			android:layout_height="1dp"
-			android:layout_below="@id/tv_description"
+			android:layout_below="@id/rl_top"
 			android:layout_marginTop="2dp"
 			android:background="?android:attr/listDivider" />
 	</RelativeLayout>

@@ -51,17 +51,24 @@ public class MainActivity extends AppCompatActivity {
                 USER_ID = databaseHelper.checkUser(databaseHelper.getReadableDatabase(), username, password, userType);
                 if (USER_ID != -1) {
                     databaseHelper.close();
+                    Intent intent;
                     switch (userType) {
                         case 0:
-                            startActivity(new Intent(this, AdminHomeScreenActivity.class));
+                            intent = new Intent(this, AdminHomeScreenActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             finish();
                             break;
                         case 1:
-                            startActivity(new Intent(this, InstructorHomeScreenActivity.class));
+                            intent = new Intent(this, InstructorHomeScreenActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             finish();
                             break;
                         case 2:
-                            startActivity(new Intent(this, MemberHomeScreenActivity.class));
+                            intent = new Intent(this, MemberHomeScreenActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             break;
                     }
                 } else {

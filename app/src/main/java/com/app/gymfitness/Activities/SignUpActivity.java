@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.R;
@@ -79,12 +78,20 @@ public class SignUpActivity extends AppCompatActivity {
                             spinner.getSelectedItemPosition()+1
                     );
                     databaseHelper.close();
-                    switch(spinner.getSelectedItemPosition()) {
+                    Intent intent;
+                    int position = spinner.getSelectedItemPosition();
+                    switch(position) {
                         case 0:
-                            startActivity(new Intent(this, InstructorHomeScreenActivity.class));
+                            intent = new Intent(this, InstructorHomeScreenActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            SignUpActivity.this.finish();
                             break;
                         case 1:
-                            startActivity(new Intent(this, MemberHomeScreenActivity.class));
+                            intent = new Intent(this, MemberHomeScreenActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            SignUpActivity.this.finish();
                             break;
                     }
                 }

@@ -23,7 +23,7 @@
 		android:layout_centerHorizontal="true"
 		android:orientation="horizontal">
 		<RadioButton
-			android:id="@+id/rb_male"
+			android:id="@+id/rb_instructors"
 			android:layout_width="0dp"
 			android:layout_weight="1"
 			android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 			android:text="Instructors"
 			android:textSize="20sp"/>
 		<RadioButton
-			android:id="@+id/rb_female"
+			android:id="@+id/rb_members"
 			android:layout_width="0dp"
 			android:layout_weight="1"
 			android:layout_height="wrap_content"
