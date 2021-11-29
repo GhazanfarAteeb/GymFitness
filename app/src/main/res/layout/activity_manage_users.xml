@@ -42,9 +42,10 @@
 			android:text="Members"
 			android:textSize="20sp"/>
 	</RadioGroup>
+
 	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/recycler_view"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@id/rg_users"
-		android:id="@+id/recycler_view"/>
+		android:layout_below="@id/rg_users" />
 </RelativeLayout>

@@ -34,6 +34,8 @@
         <entry key="app/src/main/res/layout/row_clas.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/row_class.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/row_class_type.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/row_enrolled_member.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/row_list_user.xml" value="0.23854166666666668" />
       </map>
     </option>
   </component>
