@@ -1,5 +1,7 @@
 package com.app.gymfitness.DatabaseHelper;
 
+import static java.lang.annotation.RetentionPolicy.CLASS;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //  CREATING CLASS TABLE DETAILS HERE FOR DATABASE HELPER
     public static final String CLASSES_TABLE_NAME = "Classes";
     public static final String CLASS_ID = "ID";
+
     public static final String CLASS_DESCRIPTION = "ClassDescription";
     public static final String CLASS_CAPACITY = "Capacity";
     public static final String CLASS_TYPE_ID = "ClassTypeID";
@@ -151,7 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             int colIndex = cursor.getColumnIndex(CLASS_ID);
             sqLiteDatabase.execSQL(
-                    "DELETE FROM " + ENROLLMENT_TABLE_NAME +" WHERE "+ ENROLLMENT_CLASS_ID+"="+cursor.getInt(colIndex)
+                    "DELETE FROM " + ENROLLMENT_TABLE_NAME + " WHERE " + ENROLLMENT_CLASS_ID + "=" + cursor.getInt(colIndex)
             );
         }
         sqLiteDatabase.execSQL(
@@ -162,17 +165,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void updateClassType(SQLiteDatabase sqLiteDatabase, int ID, String typeName, String typeDescription) {
         sqLiteDatabase.execSQL(
-                "UPDATE " + TYPE_TABLE_NAME +" SET " +
-                TYPE_NAME + "='"+typeName +"', " +
-                TYPE_DESCRIPTION+"='"+typeDescription +
-                "' WHERE " + TYPE_ID + "=" + ID
+                "UPDATE " + TYPE_TABLE_NAME + " SET " +
+                        TYPE_NAME + "='" + typeName + "', " +
+                        TYPE_DESCRIPTION + "='" + typeDescription +
+                        "' WHERE " + TYPE_ID + "=" + ID
         );
     }
 
     public Cursor getAllUserByType(SQLiteDatabase sqLiteDatabase, int typeID) {
         return sqLiteDatabase.rawQuery(
-                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_TYPE_ID +"="+typeID,
+                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_TYPE_ID + "=" + typeID,
                 null);
+    }
+
+    public Cursor getAllClasses(SQLiteDatabase sqLiteDatabase, int instructorId) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_INSTRUCTOR_ID + "=" + instructorId,
+                null
+        );
+    }
+
+    public Cursor[] getSearchedClassesRecords(SQLiteDatabase sqLiteDatabase, String arg) {
+        Cursor[] cursor = new Cursor[2];
+        cursor[0] = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + TYPE_TABLE_NAME + " WHERE " + TYPE_NAME + " LIKE '%" + arg + "%'",
+                null
+        );
+        Cursor c = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_NAME + " LIKE '%" + arg + "%' AND " + USER_TYPE_ID + "=" + 1,
+                null);
+        while (c.moveToNext()) {
+            int colIndex = c.getColumnIndex(USER_ID);
+            cursor[1] = sqLiteDatabase.rawQuery(
+                    "SELECT * FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_INSTRUCTOR_ID + "=" + c.getInt(colIndex),
+                    null
+            );
+        }
+        return cursor;
     }
 
     @Override
