@@ -17,6 +17,14 @@
         <entry key="..\:/Sir Awais/GymFitness/app/src/main/res/layout/add_class_type.xml" value="0.34057971014492755" />
         <entry key="..\:/Sir Awais/GymFitness/app/src/main/res/layout/row_class_type.xml" value="0.34057971014492755" />
         <entry key="..\:/Sir Awais/GymFitness/app/src/main/res/layout/row_list_user.xml" value="0.34057971014492755" />
+        <entry key="app/src/main/res/drawable/et_bg.xml" value="0.24259259259259258" />
+        <entry key="app/src/main/res/layout/activity_add_class.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/activity_admin_home_screen.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/activity_instructor_home_screen.xml" value="0.22083932725421246" />
+        <entry key="app/src/main/res/layout/activity_manage_classes.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/activity_manage_types.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/activity_manage_users.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/activity_member_home_screen.xml" value="0.23854166666666668" />
       </map>
     </option>
   </component>

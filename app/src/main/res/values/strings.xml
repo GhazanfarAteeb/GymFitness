@@ -1,14 +1,33 @@
 <resources>
-	<string name="app_name">Gym Fitness</string>
-	<string name="sign_up"><u>Sign Up</u></string>
-	<string name="sign_in"><u>Sign In</u></string>
-	<string-array name="login_types">
-		<item> Admin</item>
-		<item>Instructor</item>
-		<item> Member</item>
-	</string-array>
-	<string-array name="sign_up_types">
-		<item>Instructor</item>
-		<item> Member</item>
-	</string-array>
+    <string name="app_name">Gym Fitness</string>
+    <string name="sign_up"><u>Sign Up</u></string>
+    <string name="sign_in"><u>Sign In</u></string>
+    <string-array name="login_types">
+        <item> Admin</item>
+        <item>Instructor</item>
+        <item> Member</item>
+    </string-array>
+    <string-array name="sign_up_types">
+        <item>Instructor</item>
+        <item> Member</item>
+    </string-array>
+
+
+    <string-array name="days">
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+
+    <string-array name="level">
+
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advance</item>
+
+    </string-array>
 </resources>

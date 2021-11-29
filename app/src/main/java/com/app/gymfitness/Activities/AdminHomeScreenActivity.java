@@ -20,8 +20,5 @@ public class AdminHomeScreenActivity extends AppCompatActivity {
             finish();
         });
     }
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+
 }

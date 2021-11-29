@@ -1,44 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.app.gymfitness">
-	
-	<application
-		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
-		android:label="@string/app_name"
-		android:roundIcon="@mipmap/ic_launcher_round"
-		android:supportsRtl="true"
-		android:theme="@style/Theme.GymFitness">
-		<activity
-			android:name=".Activities.ClassTypeDescriptionActivity"
-			android:exported="false" />
-		<activity
-			android:name=".Activities.ManageUsersActivity"
-			android:exported="false" />
-		<activity
-			android:name=".Activities.ManageTypesActivity"
-			android:exported="false" />
-		<activity
-			android:name=".Activities.MemberHomeScreenActivity"
-			android:exported="false" android:noHistory="true"/>
-		<activity
-			android:name=".Activities.InstructorHomeScreenActivity"
-			android:exported="false" android:noHistory="true" />
-		<activity
-			android:name=".Activities.SignUpActivity"
-			android:exported="false" />
-		<activity
-			android:name=".Activities.AdminHomeScreenActivity"
-			android:exported="false" />
-		<activity
-			android:name=".Activities.LoginActivity"
-			android:exported="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-	</application>
+    package="com.app.gymfitness">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GymFitness">
+        <activity
+            android:name=".Activities.ActivityManageClasses"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ActivityAddClass"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ClassTypeDescriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ManageUsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ManageTypesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MemberHomeScreenActivity"
+            android:exported="false"
+            android:noHistory="true" />
+        <activity
+            android:name=".Activities.InstructorHomeScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.AdminHomeScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="true"></activity>
+    </application>
 
 </manifest>
