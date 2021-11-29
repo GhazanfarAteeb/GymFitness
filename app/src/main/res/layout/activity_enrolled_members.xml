@@ -10,28 +10,19 @@
 
 
     <TextView
-        android:id="@+id/tv_class_details"
+        android:id="@+id/tv_class_name"
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Class Details"
+        android:text="Class Name Here"
         android:textSize="24sp"
         android:textStyle="bold" />
 
 
-    <TextView
 
-        android:layout_marginTop="20dp"
-        android:id="@+id/tv_class_type_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Class Name"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:textStyle="bold"/>
     <LinearLayout
-
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -60,8 +51,8 @@
 
 
     <TextView
-
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enrolled Members:"
