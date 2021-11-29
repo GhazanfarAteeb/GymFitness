@@ -16,7 +16,7 @@ public class AdminHomeScreenActivity extends AppCompatActivity {
         findViewById(R.id.btn_manage_users).setOnClickListener(view -> startActivity(new Intent(this, ManageUsersActivity.class)));
         findViewById(R.id.btn_manage_classes).setOnClickListener(view-> startActivity(new Intent(this, ManageTypesActivity.class)));
         findViewById(R.id.btn_logout).setOnClickListener(view -> {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         });
     }

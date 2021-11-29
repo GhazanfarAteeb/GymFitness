@@ -3,8 +3,10 @@ package com.app.gymfitness.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -18,9 +20,11 @@ public class SignUpActivity extends AppCompatActivity {
     RadioGroup rg;
     EditText etName, etEmail, etPassword;
     RadioButton rbMale, rbFemale;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_sign_up);
         rg = findViewById(R.id.rg_gender);
         etName = findViewById(R.id.et_name);
@@ -38,7 +42,13 @@ public class SignUpActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        findViewById(R.id.tv_sign_in).setOnClickListener(view -> startActivity(new Intent(this, MainActivity.class)));
+        findViewById(R.id.tv_sign_in).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(context, LoginActivity.class));
+                finish();
+            }
+        });
 
         findViewById(R.id.btn_sign_up).setOnClickListener(view ->{
             boolean passwordFilled = isFieldFilled(etPassword);
@@ -71,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                     databaseHelper.getWritableDatabase().insert(DatabaseHelper.USER_TABLE_NAME, null, contentValues);
-                    MainActivity.USER_ID = databaseHelper.checkUser(
+                    LoginActivity.USER_ID = databaseHelper.checkUser(
                             databaseHelper.getReadableDatabase(),
                             etEmail.getText().toString().trim(),
                             etPassword.getText().toString().trim(),
@@ -85,13 +95,13 @@ public class SignUpActivity extends AppCompatActivity {
                             intent = new Intent(this, InstructorHomeScreenActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                            SignUpActivity.this.finish();
+                            finish();
                             break;
                         case 1:
                             intent = new Intent(this, MemberHomeScreenActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                            SignUpActivity.this.finish();
+                            finish();
                             break;
                     }
                 }

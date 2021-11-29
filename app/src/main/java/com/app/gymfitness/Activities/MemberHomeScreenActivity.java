@@ -11,8 +11,5 @@ public class MemberHomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_home_screen);
     }
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+
 }

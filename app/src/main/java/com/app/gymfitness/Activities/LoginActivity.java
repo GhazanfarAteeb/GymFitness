@@ -15,7 +15,7 @@ import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     public static int USER_ID;
     TextView tvSignUp;
     Button btnLogin;
@@ -40,7 +40,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        tvSignUp.setOnClickListener(view -> startActivity(new Intent(this,SignUpActivity.class)));
+        tvSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+                finish();
+            }
+        });
 
         btnLogin.setOnClickListener(view -> {
             if (isFieldFilled(etUserName) || isFieldFilled(etPassword)) {
