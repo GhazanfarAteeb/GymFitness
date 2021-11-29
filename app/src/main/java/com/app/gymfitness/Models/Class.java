@@ -1,6 +1,8 @@
 package com.app.gymfitness.Models;
 
-public class Class {
+import java.io.Serializable;
+
+public class Class implements Serializable {
     int id;
     int name;
     int description;

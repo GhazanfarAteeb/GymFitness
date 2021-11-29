@@ -1,6 +1,7 @@
 package com.app.gymfitness.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.gymfitness.Activities.ActivityClassDetail;
 import com.app.gymfitness.Models.Class;
 import com.app.gymfitness.Models.ClassType;
 import com.app.gymfitness.R;
@@ -34,7 +36,9 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyHolder> {
         holder.tvInstructorName.setText("fetch instructor of this class");
         holder.tvClassTypeName.setText(myClass.getName());
         holder.cvClass.setOnClickListener(view -> {
-
+            Intent intent = new Intent(context, ActivityClassDetail.class);
+            intent.putExtra("class",myClass);
+            context.startActivity(intent);
         });
     }
 
