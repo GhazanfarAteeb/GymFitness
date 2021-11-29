@@ -42,6 +42,11 @@ public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.MyHolder> {
             bundle.putString("ClassTypeName", classType.getClassName());
             bundle.putString("ClassTypeDescription", classType.getDescription());
             intent.putExtra("ClassType",bundle);
+
+           /* intent.putExtra("classtype",classType);*/
+
+
+
             context.startActivity(intent);
         });
     }

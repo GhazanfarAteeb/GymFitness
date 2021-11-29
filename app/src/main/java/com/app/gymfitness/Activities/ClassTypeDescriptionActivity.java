@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.Dialogs.UpdateClassTypeDialog;
+import com.app.gymfitness.Models.ClassType;
 import com.app.gymfitness.R;
 
 public class ClassTypeDescriptionActivity extends AppCompatActivity {
@@ -29,6 +30,8 @@ public class ClassTypeDescriptionActivity extends AppCompatActivity {
         data = getIntent().getBundleExtra("ClassType");
         tvClassName.setText(data.getString("ClassTypeName"));
         tvClassDescription.setText(data.getString("ClassTypeDescription"));
+
+        //ClassType classType = (ClassType) getIntent().getSerializableExtra("classtype");
 
         databaseHelper = new DatabaseHelper(this);
         UpdateClassTypeDialog.UpdateDataListener listener = () -> {

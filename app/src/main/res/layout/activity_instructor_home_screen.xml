@@ -23,7 +23,7 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/tv_welcome_message"
 		android:layout_centerHorizontal="true"
-		android:text="Awais Ahmad"
+		android:text="Username"
 		android:textSize="18sp"
 		android:textStyle="italic" />
 
