@@ -4,25 +4,31 @@ import java.io.Serializable;
 
 public class Class implements Serializable {
     int id;
-    int name;
-    int description;
     int capacity;
-    String difficulty;
-    int classTypeId;
     int dayId;
+    int instructorId;
     String startTime;
     String endTIme;
+    String difficulty;
+    String instructorName;
+    String className;
+    String description;
 
-    public Class(int id, int name, int description, int capacity, String difficulty, int classTypeId, int dayId, String startTime, String endTIme) {
+    public Class(int id, int instructorId, int capacity, int dayId, String startTime, String endTIme, String difficulty, String instructorName, String className, String description) {
         this.id = id;
-        this.name = name;
-        this.description = description;
+        this.instructorId = instructorId;
         this.capacity = capacity;
-        this.difficulty = difficulty;
-        this.classTypeId = classTypeId;
         this.dayId = dayId;
         this.startTime = startTime;
         this.endTIme = endTIme;
+        this.difficulty = difficulty;
+        this.instructorName = instructorName;
+        this.className = className;
+        this.description = description;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public int getId() {
@@ -33,67 +39,42 @@ public class Class implements Serializable {
         this.id = id;
     }
 
-    public int getName() {
-        return name;
-    }
-
-    public void setName(int name) {
-        this.name = name;
-    }
-
-    public int getDescription() {
+    public String getDescription() {
         return description;
-    }
-
-    public void setDescription(int description) {
-        this.description = description;
     }
 
     public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
     public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public int getClassTypeId() {
-        return classTypeId;
-    }
-
-    public void setClassTypeId(int classTypeId) {
-        this.classTypeId = classTypeId;
-    }
 
     public int getDayId() {
         return dayId;
     }
 
-    public void setDayId(int dayId) {
-        this.dayId = dayId;
-    }
 
     public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
 
     public String getEndTIme() {
         return endTIme;
     }
 
-    public void setEndTIme(String endTIme) {
-        this.endTIme = endTIme;
+    public String getInstructorName() {
+        return instructorName;
+    }
+
+    public int getInstructorId() {
+        return instructorId;
+    }
+
+    public void setInstructorId(int instructorId) {
+        this.instructorId = instructorId;
     }
 }

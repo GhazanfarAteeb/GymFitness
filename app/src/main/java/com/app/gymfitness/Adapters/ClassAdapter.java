@@ -33,8 +33,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull ClassAdapter.MyHolder holder, int position) {
         Class myClass = classList.get(position);
-        holder.tvInstructorName.setText("fetch instructor of this class");
-        holder.tvClassTypeName.setText(myClass.getName());
+        holder.tvInstructorName.setText(myClass.getInstructorName());
+        holder.tvClassTypeName.setText(myClass.getClassName());
         holder.cvClass.setOnClickListener(view -> {
             Intent intent = new Intent(context, ActivityClassDetail.class);
             intent.putExtra("class",myClass);
@@ -54,7 +54,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.MyHolder> {
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvClassTypeName = itemView.findViewById(R.id.tv_class_type_name);
-            tvInstructorName = itemView.findViewById(R.id.tv_instructor);
+            tvInstructorName = itemView.findViewById(R.id.tv_instructor_name);
             cvClass = itemView.findViewById(R.id.cv_class_type);
         }
     }

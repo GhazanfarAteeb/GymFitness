@@ -1,7 +1,5 @@
 package com.app.gymfitness.DatabaseHelper;
 
-import static java.lang.annotation.RetentionPolicy.CLASS;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.app.gymfitness.Models.Class;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -27,14 +30,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //  CREATING CLASS TABLE DETAILS HERE FOR DATABASE HELPER
     public static final String CLASSES_TABLE_NAME = "Classes";
     public static final String CLASS_ID = "ID";
-
-    public static final String CLASS_DESCRIPTION = "ClassDescription";
+    public static final String CLASS_NAME = "Name";
     public static final String CLASS_CAPACITY = "Capacity";
     public static final String CLASS_TYPE_ID = "ClassTypeID";
-    public static final String CLASS_TIME = "ClassTime";
-    public static final String CLASS_DATE = "ClassDate";
+    public static final String CLASS_START_TIME = "ClassStartTime";
+    public static final String CLASS_END_TIME = "ClassEndTime";
+    public static final String CLASS_DAY_ID = "ClassDay";
+    public static final String CLASS_DIFFICULTY = "ClassDifficulty";
     public static final String CLASS_INSTRUCTOR_ID = "InstructorID";
-
+    public static final String CLASS_INSTRUCTOR_NAME = "InstructorName";
 
     //  CREATING ENROLLMENT TABLE DETAILS HERE FOR DATABASE HELPER
     public static final String ENROLLMENT_TABLE_NAME = "Enrollments";
@@ -84,12 +88,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + CLASSES_TABLE_NAME + "(" +
                         CLASS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        CLASS_DESCRIPTION + " TEXT NOT NULL, " +
+                        CLASS_NAME + " TEXT NOT NULL, " +
                         CLASS_CAPACITY + " INTEGER NOT NULL, " +
                         CLASS_TYPE_ID + " INTEGER NOT NULL, " +
-                        CLASS_TIME + " TIME NOT NULL, " +
-                        CLASS_DATE + " DATE NOT NULL, " +
-                        CLASS_INSTRUCTOR_ID + " INTEGER NOT NULL" +
+                        CLASS_START_TIME + " TEXT NOT NULL, " +
+                        CLASS_END_TIME + " TEXT NOT NULL, " +
+                        CLASS_DAY_ID + " INTEGER NOT NULL, " +
+                        CLASS_DIFFICULTY + " TEXT NOT NULL, " +
+                        CLASS_INSTRUCTOR_ID + " INTEGER NOT NULL, " +
+                        CLASS_INSTRUCTOR_NAME + " TEXT NOT NULL" +
                         ")"
         );
         /*
@@ -185,23 +192,82 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
-    public Cursor[] getSearchedClassesRecords(SQLiteDatabase sqLiteDatabase, String arg) {
-        Cursor[] cursor = new Cursor[2];
-        cursor[0] = sqLiteDatabase.rawQuery(
-                "SELECT * FROM " + TYPE_TABLE_NAME + " WHERE " + TYPE_NAME + " LIKE '%" + arg + "%'",
-                null
-        );
-        Cursor c = sqLiteDatabase.rawQuery(
-                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_NAME + " LIKE '%" + arg + "%' AND " + USER_TYPE_ID + "=" + 1,
+    public Cursor getInstructorName(SQLiteDatabase sqLiteDatabase, int instructorId) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT " + USER_NAME + " FROM " + USER_TABLE_NAME + " WHERE " + USER_ID + "=" + instructorId + " AND " + USER_TYPE_ID + "=" + 1,
                 null);
-        while (c.moveToNext()) {
-            int colIndex = c.getColumnIndex(USER_ID);
-            cursor[1] = sqLiteDatabase.rawQuery(
-                    "SELECT * FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_INSTRUCTOR_ID + "=" + c.getInt(colIndex),
-                    null
+    }
+
+    public Cursor getInstructorClassTypesDetails(SQLiteDatabase sqLiteDatabase, int classTypeId) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + TYPE_TABLE_NAME + " WHERE " + TYPE_ID + "=" + classTypeId,
+                null);
+    }
+
+    public Cursor getAllClassesTIme(SQLiteDatabase sqLiteDatabase, int dayId) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_DAY_ID + "=" + dayId
+                , null
+        );
+    }
+
+    public void deleteClassAndEnrollmentRecord(SQLiteDatabase sqLiteDatabase, int classId) {
+        sqLiteDatabase.execSQL(
+                "DELETE FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_ID + "=" + classId
+        );
+
+        sqLiteDatabase.execSQL(
+                " DELETE FROM " + ENROLLMENT_TABLE_NAME + " WHERE " + ENROLLMENT_CLASS_ID + "=" + classId
+        );
+    }
+
+    public List<Class> getSearchedData(SQLiteDatabase sqLiteDatabase, String args) {
+        Cursor classes = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + CLASSES_TABLE_NAME +
+                        " WHERE " +
+                        CLASS_INSTRUCTOR_NAME + " LIKE '%" + args + "%'" +
+                        " OR "
+                        + CLASS_NAME + " LIKE '%" + args + "%'"
+                , null
+        );
+
+
+        List<Class> arrayList = new ArrayList<>();
+        while (classes.moveToNext()) {
+            int indexClassId = classes.getColumnIndex(CLASS_ID);
+            int indexClassCapacity = classes.getColumnIndex(CLASS_CAPACITY);
+            int indexDayId  = classes.getColumnIndex(CLASS_DAY_ID);
+            int indexInstructorId = classes.getColumnIndex(CLASS_INSTRUCTOR_ID);
+            int indexStartTime = classes.getColumnIndex(CLASS_START_TIME);
+            int indexEndTime = classes.getColumnIndex(CLASS_END_TIME);
+            int indexDifficulty = classes.getColumnIndex(CLASS_DIFFICULTY);
+            int indexInstructorName = classes.getColumnIndex(CLASS_INSTRUCTOR_NAME);
+            int indexClassTypeId = classes.getColumnIndex(CLASS_TYPE_ID);
+            Cursor cursor = getInstructorClassTypesDetails(sqLiteDatabase, classes.getInt(indexClassTypeId));
+            String className ="";
+            String classDescription = "";
+            while(cursor.moveToNext()) {
+                int classNameIndex = cursor.getColumnIndex(TYPE_NAME);
+                int classDescriptionIndex = cursor.getColumnIndex(TYPE_DESCRIPTION);
+
+                className = cursor.getString(classNameIndex);
+                classDescription = cursor.getString(classDescriptionIndex);
+            }
+            arrayList.add(new Class(
+                        classes.getInt(indexClassId),
+                        classes.getInt(indexClassCapacity),
+                        classes.getInt(indexDayId),
+                        classes.getInt(indexInstructorId),
+                        classes.getString(indexStartTime),
+                        classes.getString(indexEndTime),
+                        classes.getString(indexDifficulty),
+                        classes.getString(indexInstructorName),
+                        className,
+                        classDescription
+                    )
             );
         }
-        return cursor;
+        return arrayList;
     }
 
     @Override

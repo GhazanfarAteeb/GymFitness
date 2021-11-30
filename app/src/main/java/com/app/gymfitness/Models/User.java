@@ -38,10 +38,9 @@ public class User {
     }
 
     public String getGender() {
-        if(gender ==1) {
+        if (gender == 1) {
             return "Male";
-        }
-        else {
+        } else {
             return "Female";
         }
     }

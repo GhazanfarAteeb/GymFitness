@@ -19,8 +19,6 @@ public class InstructorHomeScreenActivity extends AppCompatActivity {
 
         context = this;
 
-
-
         findViewById(R.id.btn_manage_classes).setOnClickListener(view-> startActivity(new Intent(this, ActivityManageClasses.class)));
         findViewById(R.id.btn_logout).setOnClickListener(view -> {
             startActivity(new Intent(this, LoginActivity.class));

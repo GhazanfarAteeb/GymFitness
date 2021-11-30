@@ -19,14 +19,15 @@ import java.util.List;
 public class EnrolledMembersAdapter extends RecyclerView.Adapter<EnrolledMembersAdapter.MyHolder> {
     Context context;
     List<User> userList;
-    PassData listener;
+
     public EnrolledMembersAdapter(Context context) {
         this.context = context;
     }
+
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyHolder(LayoutInflater.from(context).inflate(R.layout.row_enrolled_member,parent,false));
+        return new MyHolder(LayoutInflater.from(context).inflate(R.layout.row_enrolled_member, parent, false));
     }
 
     @Override
@@ -36,7 +37,7 @@ public class EnrolledMembersAdapter extends RecyclerView.Adapter<EnrolledMembers
         holder.tvName.setText(user.getName());
         holder.tvEmail.setText(user.getEmail());
         holder.tvGender.setText(user.getGender());
-
+        holder.btnDelete.setVisibility(View.GONE);
     }
 
     @Override
@@ -48,25 +49,18 @@ public class EnrolledMembersAdapter extends RecyclerView.Adapter<EnrolledMembers
         public TextView tvName;
         public TextView tvEmail;
         public TextView tvGender;
-
+        public Button btnDelete;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             tvEmail = itemView.findViewById(R.id.tv_email);
             tvGender = itemView.findViewById(R.id.tv_gender);
-
+            btnDelete = itemView.findViewById(R.id.btn_delete);
         }
     }
 
     public void setData(List<User> userList) {
         this.userList = userList;
         notifyDataSetChanged();
-    }
-    public interface PassData {
-        void sendData(User user);
-    }
-
-    public void setPassDataListener(PassData listener) {
-        this.listener = listener;
     }
 }
