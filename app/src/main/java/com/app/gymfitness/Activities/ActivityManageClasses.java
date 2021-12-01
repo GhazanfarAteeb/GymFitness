@@ -68,12 +68,6 @@ public class ActivityManageClasses extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(view -> startActivity(new Intent(ActivityManageClasses.this, ActivityAddClass.class)));
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, InstructorHomeScreenActivity.class));
-        finish();
-    }
 
     public void setAdapterData() {
         myClass.clear();

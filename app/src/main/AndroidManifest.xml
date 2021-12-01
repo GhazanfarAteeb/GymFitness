@@ -22,10 +22,10 @@
 			android:name=".Activities.ActivityClassDetail"
 			android:exported="false" />
 		<activity
-			android:name=".Activities.ActivityManageClasses"
+			android:name=".Activities.ActivityManageClasses" android:windowSoftInputMode="stateHidden"
 			android:exported="false" />
 		<activity
-			android:name=".Activities.ActivityAddClass"
+			android:name=".Activities.ActivityAddClass" android:windowSoftInputMode="stateHidden"
 			android:exported="false" />
 		<activity
 			android:name=".Activities.ClassTypeDescriptionActivity"
@@ -50,7 +50,7 @@
 			android:name=".Activities.AdminHomeScreenActivity"
 			android:exported="false" />
 		<activity
-			android:name=".Activities.LoginActivity"
+			android:name=".Activities.LoginActivity" android:windowSoftInputMode="stateHidden"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
