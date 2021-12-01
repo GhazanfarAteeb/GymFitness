@@ -23,6 +23,17 @@
         <item>Friday</item>
     </string-array>
     
+    <string-array name="spinner_filer">
+        <item>All Days</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+    
     <string-array name="level">
         
         <item>Beginner</item>

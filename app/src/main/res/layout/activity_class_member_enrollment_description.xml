@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="16dp"
+	tools:context=".Activities.ClassTypeDescriptionActivity">
+	
+	<ImageView
+		android:id="@+id/iv_back"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/tv_class_details"
+		android:layout_alignBottom="@id/tv_class_details"
+		android:layout_alignParentStart="true"
+		android:src="@drawable/ic_back_arrow" />
+	
+	<TextView
+		android:id="@+id/tv_class_details"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:text="Class Details"
+		android:textSize="24sp"
+		android:textStyle="bold" />
+	
+	<ScrollView
+		android:layout_below="@id/tv_class_details"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<LinearLayout
+			android:layout_marginTop="16dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<TextView
+				android:id="@+id/tv_class_type_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Class Type"
+				android:textSize="20sp"
+				android:textStyle="bold"/>
+			<TextView
+				android:layout_marginTop="8dp"
+				android:id="@+id/tv_class_type_description"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="8"
+				android:text="Class Description"
+				android:textSize="14sp"/>
+			
+			<LinearLayout
+				android:layout_marginTop="8dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Instructor: "
+					android:textStyle="bold"
+					android:textColor="@color/black"
+					android:textSize="15sp" />
+				
+				<TextView
+					android:id="@+id/tv_instructor_name"
+					android:layout_marginStart="8dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text=""
+					android:textColor="@color/black"
+					android:textSize="14sp" />
+			
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Difficulty Level: "
+					android:textStyle="bold"
+					android:textColor="@color/black"
+					android:textSize="15sp" />
+				
+				<TextView
+					android:id="@+id/tv_difficulty"
+					android:layout_marginLeft="8dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text=""
+					android:textColor="@color/black"
+					android:textSize="14sp" />
+			
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Capacity: "
+					android:textStyle="bold"
+					android:textColor="@color/black"
+					android:textSize="15sp" />
+				
+				<TextView
+					android:id="@+id/tv_capacity"
+					android:layout_marginStart="8dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Beginner"
+					android:textColor="@color/black"
+					android:textSize="14sp" />
+			
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Time: "
+					android:textStyle="bold"
+					android:textColor="@color/black"
+					android:textSize="15sp" />
+				
+				<TextView
+					android:id="@+id/tv_time"
+					android:layout_marginStart="8dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text=""
+					android:textColor="@color/black"
+					android:textSize="14sp" />
+			
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Day: "
+					android:textStyle="bold"
+					android:textColor="@color/black"
+					android:textSize="15sp" />
+				
+				<TextView
+					android:id="@+id/tv_day"
+					android:layout_marginStart="8dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:text="Beginner"
+					android:textColor="@color/black"
+					android:textSize="14sp" />
+			</LinearLayout>
+		</LinearLayout>
+	
+	
+	</ScrollView>
+	
+	<LinearLayout
+		android:id="@+id/bottom"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="25dp"
+		android:orientation="vertical">
+		<Button
+			android:id="@+id/btn_enroll"
+			android:layout_width="170dp"
+			android:layout_height="wrap_content"
+			android:text="Enroll"/>
+		<Button
+			android:id="@+id/btn_unroll"
+			android:layout_width="170dp"
+			android:layout_height="wrap_content"
+			android:backgroundTint="#ff0000"
+			android:text="Unroll"/>
+	</LinearLayout>
+</RelativeLayout>

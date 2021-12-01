@@ -107,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + ENROLLMENT_TABLE_NAME + "(" +
                         ENROLLMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         ENROLLMENT_CLASS_ID + " INTEGER NOT NULL, " +
-                        ENROLLMENT_USER_ID + "INTEGER NOT NULL "
+                        ENROLLMENT_USER_ID + " INTEGER NOT NULL "
                         + ")"
         );
 
@@ -237,7 +237,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (classes.moveToNext()) {
             int indexClassId = classes.getColumnIndex(CLASS_ID);
             int indexClassCapacity = classes.getColumnIndex(CLASS_CAPACITY);
-            int indexDayId  = classes.getColumnIndex(CLASS_DAY_ID);
+            int indexDayId = classes.getColumnIndex(CLASS_DAY_ID);
             int indexInstructorId = classes.getColumnIndex(CLASS_INSTRUCTOR_ID);
             int indexStartTime = classes.getColumnIndex(CLASS_START_TIME);
             int indexEndTime = classes.getColumnIndex(CLASS_END_TIME);
@@ -245,9 +245,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int indexInstructorName = classes.getColumnIndex(CLASS_INSTRUCTOR_NAME);
             int indexClassTypeId = classes.getColumnIndex(CLASS_TYPE_ID);
             Cursor cursor = getInstructorClassTypesDetails(sqLiteDatabase, classes.getInt(indexClassTypeId));
-            String className ="";
+            String className = "";
             String classDescription = "";
-            while(cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
                 int classNameIndex = cursor.getColumnIndex(TYPE_NAME);
                 int classDescriptionIndex = cursor.getColumnIndex(TYPE_DESCRIPTION);
 
@@ -255,16 +255,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 classDescription = cursor.getString(classDescriptionIndex);
             }
             arrayList.add(new Class(
-                        classes.getInt(indexClassId),
-                        classes.getInt(indexInstructorId),
-                        classes.getInt(indexClassCapacity),
-                        classes.getInt(indexDayId),
-                        classes.getString(indexStartTime),
-                        classes.getString(indexEndTime),
-                        classes.getString(indexDifficulty),
-                        classes.getString(indexInstructorName),
-                        className,
-                        classDescription
+                            classes.getInt(indexClassId),
+                            classes.getInt(indexInstructorId),
+                            classes.getInt(indexClassCapacity),
+                            classes.getInt(indexDayId),
+                            classes.getString(indexStartTime),
+                            classes.getString(indexEndTime),
+                            classes.getString(indexDifficulty),
+                            classes.getString(indexInstructorName),
+                            className,
+                            classDescription
+                    )
+            );
+        }
+        return arrayList;
+    }
+
+    public List<Class> getMemberSearchData(SQLiteDatabase sqLiteDatabase, String args, int dayId) {
+        Cursor classes;
+        if (dayId == 0) {
+            classes = sqLiteDatabase.rawQuery(
+                    "SELECT * FROM " + CLASSES_TABLE_NAME + " WHERE " + CLASS_NAME + " LIKE '%" + args + "%'"
+                    , null
+            );
+        } else {
+            classes = sqLiteDatabase.rawQuery(
+                    "SELECT * FROM " + CLASSES_TABLE_NAME +
+                            " WHERE " +
+                            CLASS_NAME + " LIKE '%" + args + "%'" +
+                            " AND " + CLASS_DAY_ID + " = " + (dayId - 1)
+                    , null
+            );
+        }
+
+        List<Class> arrayList = new ArrayList<>();
+        while (classes.moveToNext()) {
+            int indexClassId = classes.getColumnIndex(CLASS_ID);
+            int indexClassCapacity = classes.getColumnIndex(CLASS_CAPACITY);
+            int indexDayId = classes.getColumnIndex(CLASS_DAY_ID);
+            int indexInstructorId = classes.getColumnIndex(CLASS_INSTRUCTOR_ID);
+            int indexStartTime = classes.getColumnIndex(CLASS_START_TIME);
+            int indexEndTime = classes.getColumnIndex(CLASS_END_TIME);
+            int indexDifficulty = classes.getColumnIndex(CLASS_DIFFICULTY);
+            int indexInstructorName = classes.getColumnIndex(CLASS_INSTRUCTOR_NAME);
+            int indexClassTypeId = classes.getColumnIndex(CLASS_TYPE_ID);
+            Cursor cursor = getInstructorClassTypesDetails(sqLiteDatabase, classes.getInt(indexClassTypeId));
+            String className = "";
+            String classDescription = "";
+            while (cursor.moveToNext()) {
+                int classNameIndex = cursor.getColumnIndex(TYPE_NAME);
+                int classDescriptionIndex = cursor.getColumnIndex(TYPE_DESCRIPTION);
+
+                className = cursor.getString(classNameIndex);
+                classDescription = cursor.getString(classDescriptionIndex);
+            }
+            arrayList.add(new Class(
+                            classes.getInt(indexClassId),
+                            classes.getInt(indexInstructorId),
+                            classes.getInt(indexClassCapacity),
+                            classes.getInt(indexDayId),
+                            classes.getString(indexStartTime),
+                            classes.getString(indexEndTime),
+                            classes.getString(indexDifficulty),
+                            classes.getString(indexInstructorName),
+                            className,
+                            classDescription
                     )
             );
         }
@@ -274,16 +329,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<User> getEnrolledMembersData(SQLiteDatabase sqLiteDatabase, int classID) {
         List<User> userList = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery(
-                "SELECT * FROM " + ENROLLMENT_TABLE_NAME +" WHERE " + ENROLLMENT_CLASS_ID +"=" + classID,
+                "SELECT * FROM " + ENROLLMENT_TABLE_NAME + " WHERE " + ENROLLMENT_CLASS_ID + "=" + classID,
                 null
         );
 
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             int colUserIdIndex = cursor.getColumnIndex(ENROLLMENT_USER_ID);
             Cursor userInfo = sqLiteDatabase.rawQuery(
-                    "SELECT * FROM " + USER_TABLE_NAME +" WHERE " + USER_ID+ "=" + cursor.getInt(colUserIdIndex),
+                    "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_ID + "=" + cursor.getInt(colUserIdIndex),
                     null);
-            while(userInfo.moveToNext()) {
+            while (userInfo.moveToNext()) {
                 int userIdIndex = cursor.getColumnIndex(USER_ID);
                 int userNameIndex = cursor.getColumnIndex(USER_NAME);
                 int emailIndex = cursor.getColumnIndex(USER_EMAIL);
@@ -306,7 +361,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getUsername(SQLiteDatabase sqLiteDatabase, int ID) {
         String username = "";
         Cursor cursor = sqLiteDatabase.rawQuery(
-                "SELECT * FROM " + USER_TABLE_NAME + " WHERE "+ USER_ID +"=" + ID,
+                "SELECT * FROM " + USER_TABLE_NAME + " WHERE " + USER_ID + "=" + ID,
                 null
         );
         while (cursor.moveToNext()) {
@@ -315,6 +370,95 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return username;
     }
+
+    public List<Class> getMemberClassList(SQLiteDatabase sqLiteDatabase, int ID) {
+        List<Class> arrayList = new ArrayList<>();
+        Cursor memberClassRecord = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + ENROLLMENT_TABLE_NAME + " WHERE " + ENROLLMENT_USER_ID + "=" + ID
+                , null
+        );
+        while (memberClassRecord.moveToNext()) {
+            int classIdIndex = memberClassRecord.getColumnIndex(ENROLLMENT_CLASS_ID);
+            Cursor classes = sqLiteDatabase.rawQuery(
+                    "SELECT * FROM " + CLASSES_TABLE_NAME +
+                            " WHERE " +
+                            CLASS_ID + "=" + memberClassRecord.getInt(classIdIndex)
+                    , null
+            );
+
+            while (classes.moveToNext()) {
+                int indexClassId = classes.getColumnIndex(CLASS_ID);
+                int indexClassCapacity = classes.getColumnIndex(CLASS_CAPACITY);
+                int indexDayId = classes.getColumnIndex(CLASS_DAY_ID);
+                int indexInstructorId = classes.getColumnIndex(CLASS_INSTRUCTOR_ID);
+                int indexStartTime = classes.getColumnIndex(CLASS_START_TIME);
+                int indexEndTime = classes.getColumnIndex(CLASS_END_TIME);
+                int indexDifficulty = classes.getColumnIndex(CLASS_DIFFICULTY);
+                int indexInstructorName = classes.getColumnIndex(CLASS_INSTRUCTOR_NAME);
+                int indexClassTypeId = classes.getColumnIndex(CLASS_TYPE_ID);
+                Cursor cursor = getInstructorClassTypesDetails(sqLiteDatabase, classes.getInt(indexClassTypeId));
+                String className = "";
+                String classDescription = "";
+                while (cursor.moveToNext()) {
+                    int classNameIndex = cursor.getColumnIndex(TYPE_NAME);
+                    int classDescriptionIndex = cursor.getColumnIndex(TYPE_DESCRIPTION);
+
+                    className = cursor.getString(classNameIndex);
+                    classDescription = cursor.getString(classDescriptionIndex);
+                }
+                arrayList.add(new Class(
+                                classes.getInt(indexClassId),
+                                classes.getInt(indexInstructorId),
+                                classes.getInt(indexClassCapacity),
+                                classes.getInt(indexDayId),
+                                classes.getString(indexStartTime),
+                                classes.getString(indexEndTime),
+                                classes.getString(indexDifficulty),
+                                classes.getString(indexInstructorName),
+                                className,
+                                classDescription
+                        )
+                );
+            }
+        }
+        return arrayList;
+    }
+
+    public boolean isMemberEnrolled(SQLiteDatabase sqLiteDatabase, int classId, int userId) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + ENROLLMENT_TABLE_NAME +
+                        " WHERE " + ENROLLMENT_CLASS_ID + "=" + classId + " AND " +
+                        ENROLLMENT_USER_ID + "=" + userId
+                , null
+        ).moveToFirst();
+    }
+
+    public boolean canUserRegister(SQLiteDatabase sqLiteDatabase, int classId, int capacity) {
+        Cursor cursor = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + ENROLLMENT_TABLE_NAME +
+                        " WHERE " + ENROLLMENT_CLASS_ID + "=" + classId,
+                null
+        );
+
+        boolean canRegister = false;
+        int count = 0;
+        while (cursor.moveToNext()) {
+            count++;
+        }
+        if (count < capacity) {
+            canRegister = true;
+        }
+        return canRegister;
+    }
+
+    public void unrollMember(SQLiteDatabase sqLiteDatabase, int classId, int userId) {
+        sqLiteDatabase.execSQL(
+                "DELETE FROM " + ENROLLMENT_TABLE_NAME +
+                        " WHERE " + ENROLLMENT_CLASS_ID + "=" + classId +
+                        " AND " + ENROLLMENT_USER_ID + "=" + userId
+        );
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME);

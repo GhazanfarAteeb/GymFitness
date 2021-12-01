@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:paddingStart="20dp"
+	android:paddingEnd="20dp"
 	tools:context=".Activities.ActivityMemberClasses">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+	<LinearLayout
+		android:id="@+id/ll_search"
+		android:layout_marginTop="20dp"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<EditText
+			android:id="@+id/et_search"
+			android:layout_width="match_parent"
+			android:layout_height="55dp"
+			android:background="@drawable/et_bg"
+			android:hint="Search Class"
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"/>
+		<Spinner
+			android:layout_marginTop="20dp"
+			android:layout_width="match_parent"
+			android:layout_height="55dp"
+			android:id="@+id/spinner_select_day"/>
+	</LinearLayout>
+	<androidx.recyclerview.widget.RecyclerView
+		android:layout_marginTop="10dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/ll_search"
+		android:id="@+id/recycler_view"/>
+</RelativeLayout>

@@ -18,10 +18,9 @@ public class MemberHomeScreenActivity extends AppCompatActivity {
         String userName = databaseHelper.getUsername(databaseHelper.getReadableDatabase(), LoginActivity.USER_ID);
         databaseHelper.close();
         ((TextView)findViewById(R.id.tv_name)).setText(userName);
-        findViewById(R.id.btn_manage_classes).setOnClickListener(view-> startActivity(new Intent(this, ActivityManageClasses.class)));
+        findViewById(R.id.btn_manage_classes).setOnClickListener(view-> startActivity(new Intent(this, ActivityMemberClasses.class)));
         findViewById(R.id.btn_logout).setOnClickListener(view -> {
             startActivity(new Intent(this, LoginActivity.class));
-            finish();
         });
     }
 
