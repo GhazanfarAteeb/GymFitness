@@ -40,6 +40,11 @@ public class ActivityClassDetail extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+        findViewById(R.id.btn_view_members).setOnClickListener(view -> {
+           Intent intent = new Intent(this, ActivityEnrolledMembers.class);
+           intent.putExtra("class", myClass);
+           startActivity(intent);
+        });
         findViewById(R.id.btn_delete).setOnClickListener(view -> {
             DatabaseHelper databaseHelper = new DatabaseHelper(this);
             databaseHelper.deleteClassAndEnrollmentRecord(databaseHelper.getReadableDatabase(), myClass.getId());

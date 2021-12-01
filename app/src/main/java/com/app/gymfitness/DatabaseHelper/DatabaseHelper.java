@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.app.gymfitness.Models.Class;
+import com.app.gymfitness.Models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -255,9 +256,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             arrayList.add(new Class(
                         classes.getInt(indexClassId),
+                        classes.getInt(indexInstructorId),
                         classes.getInt(indexClassCapacity),
                         classes.getInt(indexDayId),
-                        classes.getInt(indexInstructorId),
                         classes.getString(indexStartTime),
                         classes.getString(indexEndTime),
                         classes.getString(indexDifficulty),
@@ -270,6 +271,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public List<User> getEnrolledMembersData(SQLiteDatabase sqLiteDatabase, int classID) {
+        List<User> userList = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + ENROLLMENT_TABLE_NAME +" WHERE " + ENROLLMENT_CLASS_ID +"=" + classID,
+                null
+        );
+
+        while(cursor.moveToNext()) {
+            int colUserIdIndex = cursor.getColumnIndex(ENROLLMENT_USER_ID);
+            Cursor userInfo = sqLiteDatabase.rawQuery(
+                    "SELECT * FROM " + USER_TABLE_NAME +" WHERE " + USER_ID+ "=" + cursor.getInt(colUserIdIndex),
+                    null);
+            while(userInfo.moveToNext()) {
+                int userIdIndex = cursor.getColumnIndex(USER_ID);
+                int userNameIndex = cursor.getColumnIndex(USER_NAME);
+                int emailIndex = cursor.getColumnIndex(USER_EMAIL);
+                int genderIndex = cursor.getColumnIndex(USER_GENDER);
+
+                userList.add(
+                        new User(
+                                userInfo.getInt(userIdIndex),
+                                userInfo.getString(userNameIndex),
+                                userInfo.getString(emailIndex),
+                                userInfo.getInt(genderIndex)
+                        )
+                );
+            }
+        }
+
+        return userList;
+    }
+
+    public String getUsername(SQLiteDatabase sqLiteDatabase, int ID) {
+        String username = "";
+        Cursor cursor = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + USER_TABLE_NAME + " WHERE "+ USER_ID +"=" + ID,
+                null
+        );
+        while (cursor.moveToNext()) {
+            int usernameIndex = cursor.getColumnIndex(USER_NAME);
+            username = cursor.getString(usernameIndex);
+        }
+        return username;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME);

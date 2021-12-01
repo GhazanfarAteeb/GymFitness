@@ -37,7 +37,6 @@ public class EnrolledMembersAdapter extends RecyclerView.Adapter<EnrolledMembers
         holder.tvName.setText(user.getName());
         holder.tvEmail.setText(user.getEmail());
         holder.tvGender.setText(user.getGender());
-        holder.btnDelete.setVisibility(View.GONE);
     }
 
     @Override
@@ -49,13 +48,11 @@ public class EnrolledMembersAdapter extends RecyclerView.Adapter<EnrolledMembers
         public TextView tvName;
         public TextView tvEmail;
         public TextView tvGender;
-        public Button btnDelete;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             tvEmail = itemView.findViewById(R.id.tv_email);
             tvGender = itemView.findViewById(R.id.tv_gender);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
         }
     }
 

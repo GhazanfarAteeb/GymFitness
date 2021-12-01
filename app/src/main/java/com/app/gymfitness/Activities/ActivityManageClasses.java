@@ -24,7 +24,7 @@ public class ActivityManageClasses extends AppCompatActivity {
     List<Class> myClass;
     static String instructorName;
     RecyclerView recyclerView;
-
+    ClassAdapter classAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +34,50 @@ public class ActivityManageClasses extends AppCompatActivity {
 
         myClass = new ArrayList<>();
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
-        ClassAdapter classAdapter = new ClassAdapter(this);
+        classAdapter = new ClassAdapter(this);
         // FETCHING THE INSTRUCTOR NAME FIRST
+        setAdapterData();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(classAdapter);
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // DATABASE QUERY HERE
+                if (etSearch.getText().toString().isEmpty()) {
+                    setAdapterData();
+                }
+                else {
+                    DatabaseHelper databaseHelper = new DatabaseHelper(ActivityManageClasses.this);
+                    classAdapter.setData(databaseHelper.getSearchedData(databaseHelper.getReadableDatabase(), etSearch.getText().toString().trim()));
+                }
+
+            }
+        });
+
+        findViewById(R.id.fab).setOnClickListener(view -> startActivity(new Intent(ActivityManageClasses.this, ActivityAddClass.class)));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, InstructorHomeScreenActivity.class));
+        finish();
+    }
+
+    public void setAdapterData() {
+        myClass.clear();
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         Cursor cursorInstructorInfo = databaseHelper.getInstructorName(databaseHelper.getReadableDatabase(), LoginActivity.USER_ID);
         while (cursorInstructorInfo.moveToNext()) {
             int index = cursorInstructorInfo.getColumnIndex(DatabaseHelper.USER_NAME);
@@ -88,37 +128,6 @@ public class ActivityManageClasses extends AppCompatActivity {
             );
         }
         cursorClassInfo.close();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(classAdapter);
         classAdapter.setData(myClass);
-
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                // DATABASE QUERY HERE
-                DatabaseHelper databaseHelper = new DatabaseHelper(ActivityManageClasses.this);
-                classAdapter.setData(databaseHelper.getSearchedData(databaseHelper.getReadableDatabase(), etSearch.getText().toString().trim()));
-
-            }
-        });
-
-        findViewById(R.id.fab).setOnClickListener(view -> startActivity(new Intent(ActivityManageClasses.this, ActivityAddClass.class)));
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, InstructorHomeScreenActivity.class));
-        finish();
     }
 }

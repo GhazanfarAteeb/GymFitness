@@ -10,6 +10,9 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.GymFitness">
 		<activity
+			android:name=".Activities.ActivityMemberClasses"
+			android:exported="false" />
+		<activity
 			android:name=".Activities.ActivityEnrolledMembers"
 			android:exported="false" />
 		<activity

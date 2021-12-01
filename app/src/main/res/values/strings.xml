@@ -11,8 +11,8 @@
         <item>Instructor</item>
         <item> Member</item>
     </string-array>
-
-
+    
+    
     <string-array name="days">
         <item>Saturday</item>
         <item>Sunday</item>
@@ -22,12 +22,12 @@
         <item>Thursday</item>
         <item>Friday</item>
     </string-array>
-
+    
     <string-array name="level">
-
+        
         <item>Beginner</item>
         <item>Intermediate</item>
         <item>Advance</item>
-
+    
     </string-array>
 </resources>
