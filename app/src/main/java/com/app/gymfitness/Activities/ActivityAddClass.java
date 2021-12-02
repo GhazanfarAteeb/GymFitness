@@ -163,13 +163,10 @@ public class ActivityAddClass extends AppCompatActivity {
     }
 
     private boolean isFieldFilled(EditText field) {
-        boolean fieldFilled = true;
-
-        if (field.getText().toString().trim().isEmpty()) {
+        boolean fieldFilled = MyUtils.checkData(field.getText().toString());
+        if (!fieldFilled) {
             field.setError("Required field cannot be empty.");
-            fieldFilled = false;
         }
-
         return fieldFilled;
     }
 

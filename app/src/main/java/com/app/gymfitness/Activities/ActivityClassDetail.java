@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.Models.Class;
 import com.app.gymfitness.R;
+import com.app.gymfitness.utils.MyUtils;
 
 
 public class ActivityClassDetail extends AppCompatActivity {
@@ -53,9 +54,11 @@ public class ActivityClassDetail extends AppCompatActivity {
             finish();
         });
 
-        if (myClass.getInstructorId() != LoginActivity.USER_ID) {
+        if (MyUtils.checkInstructorId(myClass.getInstructorId(), LoginActivity.USER_ID)) {
             LinearLayout ll = findViewById(R.id.bottom);
             ll.setVisibility(View.GONE);
         }
     }
+
+
 }
