@@ -29,14 +29,14 @@ public class UnitTesting {
 
     @Test
     public void falseTestValidateFieldTime(){
-        boolean expected = true;
+        boolean expected = false;
         boolean result = MyUtils.validateFieldTIme("12:10","10:24");
         assertEquals(expected, result);
     }
 
     @Test
     public void falseTestIsDataEmpty() {
-        boolean expected = true;
+        boolean expected = false;
         boolean result = MyUtils.checkData("");
         assertEquals(expected,result);
     }
