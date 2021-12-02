@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.app.gymfitness.DatabaseHelper.DatabaseHelper;
 import com.app.gymfitness.Models.ClassType;
 import com.app.gymfitness.R;
+import com.app.gymfitness.utils.MyUtils;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -113,7 +114,7 @@ public class ActivityAddClass extends AppCompatActivity {
                 /*
                        EXTRA CHECK ON START TIME AND END TIME BECAUSE THE END TIME MUST BE AFTER END TIME
                  */
-                if (validateFieldTIme(etStartTime.getText().toString(), etEndTime.getText().toString())) {
+                if (MyUtils.validateFieldTIme(etStartTime.getText().toString(), etEndTime.getText().toString())) {
                     DatabaseHelper databaseHelper = new DatabaseHelper(this);
                     Cursor cursor = databaseHelper.getAllClassesTIme(databaseHelper.getReadableDatabase(), spinnerGetDay.getSelectedItemPosition());
 
@@ -191,11 +192,7 @@ public class ActivityAddClass extends AppCompatActivity {
         return isInBetween;
     }
 
-    private boolean validateFieldTIme(String startTime, String endTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US);
-        LocalTime startLocalTime = LocalTime.parse(startTime, formatter);
-        LocalTime endLocalTime = LocalTime.parse(endTime, formatter);
 
-        return startLocalTime.isBefore(endLocalTime);
-    }
+
+
 }
